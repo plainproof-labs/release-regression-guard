@@ -1,0 +1,17 @@
+{
+  "$schema": "../schema/release-guard.schema.json",
+  "version": 1,
+  "sitemapPath": "/sitemap.xml",
+  "criticalUrls": [
+    {
+      "path": "/",
+      "status": { "allowed": [200] },
+      "redirect": { "finalPath": "/", "expectedHops": 0 },
+      "robots": { "indexable": true },
+      "canonical": { "path": "/" },
+      "metadata": { "required": ["title", "name:description"] },
+      "sitemap": { "required": true },
+      "requiredInternalLinks": ["/docs"]
+    }
+  ]
+}

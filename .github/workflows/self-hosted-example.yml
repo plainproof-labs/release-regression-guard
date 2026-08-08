@@ -1,0 +1,47 @@
+name: Release regression guard (self-hosted example)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-release:
+    runs-on: self-hosted
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Start the deterministic fixture site
+        id: fixture
+        shell: bash
+        env:
+          RRG_FIXTURE_PORT: "0"
+          RRG_FIXTURE_READY: ${{ runner.temp }}/release-guard-fixture-ready
+        run: |
+          node scripts/serve-fixtures.js &
+          for attempt in {1..50}; do
+            if test -f "$RRG_FIXTURE_READY"; then
+              base="$(sed -n '1p' "$RRG_FIXTURE_READY")"
+              case "$base" in
+                http://127.0.0.1:*) echo "base=$base" >> "$GITHUB_OUTPUT"; exit 0 ;;
+                *) exit 1 ;;
+              esac
+            fi
+            sleep 0.1
+          done
+          exit 1
+
+      - name: Verify declared critical URLs
+        id: release_guard
+        uses: ./
+        with:
+          manifest: fixtures/manifests/positive.json
+          target-base: ${{ steps.fixture.outputs.base }}
+          report-dir: release-guard-report
+
+      - name: Add the local report to the run summary
+        if: always()
+        shell: bash
+        run: test -f release-guard-report/report.md && sed -n '1,240p' release-guard-report/report.md >> "$GITHUB_STEP_SUMMARY"

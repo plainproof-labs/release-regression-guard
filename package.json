@@ -1,0 +1,19 @@
+{
+  "name": "release-regression-guard",
+  "version": "1.0.0",
+  "description": "Post-deploy release checks for repository-declared critical URLs",
+  "private": true,
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node --test test/*.test.js",
+    "test": "node --test test/*.test.js",
+    "e2e": "node scripts/local-action-e2e.js",
+    "evidence": "node scripts/generate-fixture-evidence.js",
+    "qa:docs": "node scripts/render-markdown-preview.js",
+    "example": "node bin/release-regression-guard.js --manifest examples/release-guard.json --target-base http://127.0.0.1:4173 --report-dir release-guard-report"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,140 @@
+{
+  "formatVersion": 1,
+  "generatedAt": "2026-08-08T00:00:00.000Z",
+  "provenance": {
+    "schema": "https://release-regression-guard.invalid/schema/v1.json",
+    "schemaVersion": 1,
+    "implementationVersion": "1.0.0",
+    "sourceLedger": "sources/PROVENANCE.md",
+    "ruleSourceMap": "src/provenance.js"
+  },
+  "summary": {
+    "conclusion": "fail",
+    "total": 17,
+    "pass": 5,
+    "fail": 12,
+    "unknown": 0,
+    "exception": 0
+  },
+  "results": [
+    {
+      "path": "/negative",
+      "check": "status",
+      "status": "pass",
+      "message": "Final status 200",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/negative",
+      "check": "redirect",
+      "status": "pass",
+      "message": "0 hop(s), final path /negative",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/negative",
+      "check": "robots.noindex",
+      "status": "fail",
+      "message": "noindex directive present",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/negative",
+      "check": "robots.disallow",
+      "status": "fail",
+      "message": "robots.txt disallows /negative",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/negative",
+      "check": "canonical",
+      "status": "fail",
+      "message": "Expected one canonical /negative; observed /wrong-canonical",
+      "source": "html-elements"
+    },
+    {
+      "path": "/negative",
+      "check": "metadata:title",
+      "status": "fail",
+      "message": "title is missing or blank",
+      "source": "html-elements"
+    },
+    {
+      "path": "/negative",
+      "check": "metadata:name:description",
+      "status": "fail",
+      "message": "name:description is missing or blank",
+      "source": "html-elements"
+    },
+    {
+      "path": "/negative",
+      "check": "sitemap",
+      "status": "fail",
+      "message": "/negative is missing from the sitemap",
+      "source": "sitemaps-protocol"
+    },
+    {
+      "path": "/negative",
+      "check": "link:/docs",
+      "status": "fail",
+      "message": "Required internal link /docs is missing",
+      "source": "html-elements"
+    },
+    {
+      "path": "/not-found",
+      "check": "status",
+      "status": "fail",
+      "message": "Expected 200, received 404",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/not-found",
+      "check": "redirect",
+      "status": "pass",
+      "message": "0 hop(s), final path /not-found",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/not-found",
+      "check": "robots.noindex",
+      "status": "pass",
+      "message": "No noindex directive found",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/not-found",
+      "check": "robots.disallow",
+      "status": "pass",
+      "message": "robots.txt allows /not-found",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/not-found",
+      "check": "canonical",
+      "status": "fail",
+      "message": "Expected one canonical /not-found; observed missing",
+      "source": "html-elements"
+    },
+    {
+      "path": "/not-found",
+      "check": "metadata:title",
+      "status": "fail",
+      "message": "title is missing or blank",
+      "source": "html-elements"
+    },
+    {
+      "path": "/not-found",
+      "check": "metadata:name:description",
+      "status": "fail",
+      "message": "name:description is missing or blank",
+      "source": "html-elements"
+    },
+    {
+      "path": "/not-found",
+      "check": "sitemap",
+      "status": "fail",
+      "message": "/not-found is missing from the sitemap",
+      "source": "sitemaps-protocol"
+    }
+  ]
+}

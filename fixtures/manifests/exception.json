@@ -1,0 +1,25 @@
+{
+  "$schema": "../../schema/release-guard.schema.json",
+  "version": 1,
+  "sitemapPath": "/sitemap.xml",
+  "criticalUrls": [
+    {
+      "path": "/exception",
+      "status": { "allowed": [200] },
+      "redirect": { "finalPath": "/exception", "expectedHops": 0 },
+      "robots": { "indexable": true },
+      "canonical": { "path": "/exception" },
+      "metadata": { "required": ["title", "name:description"] },
+      "sitemap": { "required": true },
+      "requiredInternalLinks": ["/docs"],
+      "exceptions": [
+        {
+          "check": "metadata:name:description",
+          "reason": "Known migration gap with an owner",
+          "source": "CHANGE-123",
+          "expiresAt": "2026-12-31"
+        }
+      ]
+    }
+  ]
+}

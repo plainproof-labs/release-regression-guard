@@ -1,0 +1,27 @@
+{
+  "$schema": "../../schema/release-guard.schema.json",
+  "version": 1,
+  "sitemapPath": "/sitemap.xml",
+  "criticalUrls": [
+    {
+      "path": "/positive",
+      "status": { "allowed": [200] },
+      "redirect": { "finalPath": "/positive", "expectedHops": 0 },
+      "robots": { "indexable": true },
+      "canonical": { "path": "/positive" },
+      "metadata": { "required": ["title", "name:description", "property:og:title"] },
+      "sitemap": { "required": true },
+      "requiredInternalLinks": ["/docs"]
+    },
+    {
+      "path": "/moved",
+      "status": { "allowed": [200] },
+      "redirect": { "finalPath": "/landing", "expectedHops": 1 },
+      "robots": { "indexable": true },
+      "canonical": { "path": "/landing" },
+      "metadata": { "required": ["title", "name:description"] },
+      "sitemap": { "required": true },
+      "requiredInternalLinks": ["/docs"]
+    }
+  ]
+}

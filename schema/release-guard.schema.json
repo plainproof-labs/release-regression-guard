@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://release-regression-guard.invalid/schema/v1.json",
+  "title": "Release Regression Guard manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "sitemapPath", "criticalUrls"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "const": 1 },
+    "sitemapPath": { "$ref": "#/$defs/path" },
+    "criticalUrls": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/criticalUrl" }
+    }
+  },
+  "$defs": {
+    "path": {
+      "type": "string",
+      "pattern": "^/[^#]*$",
+      "minLength": 1
+    },
+    "criticalUrl": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "status", "redirect", "robots", "canonical", "metadata", "sitemap", "requiredInternalLinks"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["allowed"],
+          "properties": {
+            "allowed": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "type": "integer", "minimum": 200, "maximum": 499 }
+            }
+          }
+        },
+        "redirect": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["finalPath", "expectedHops"],
+          "properties": {
+            "finalPath": { "$ref": "#/$defs/path" },
+            "expectedHops": { "type": "integer", "minimum": 0, "maximum": 10 }
+          }
+        },
+        "robots": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["indexable"],
+          "properties": { "indexable": { "const": true } }
+        },
+        "canonical": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path"],
+          "properties": { "path": { "$ref": "#/$defs/path" } }
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required"],
+          "properties": {
+            "required": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^(title|name:[A-Za-z0-9:_-]+|property:[A-Za-z0-9:_-]+)$"
+              }
+            }
+          }
+        },
+        "sitemap": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required"],
+          "properties": { "required": { "const": true } }
+        },
+        "requiredInternalLinks": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/path" }
+        },
+        "exceptions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["check", "reason", "source", "expiresAt"],
+            "properties": {
+              "check": { "type": "string", "minLength": 1 },
+              "reason": { "type": "string", "minLength": 1 },
+              "source": { "type": "string", "minLength": 1 },
+              "expiresAt": { "type": "string", "format": "date" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

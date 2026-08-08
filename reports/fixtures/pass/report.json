@@ -1,0 +1,154 @@
+{
+  "formatVersion": 1,
+  "generatedAt": "2026-08-08T00:00:00.000Z",
+  "provenance": {
+    "schema": "https://release-regression-guard.invalid/schema/v1.json",
+    "schemaVersion": 1,
+    "implementationVersion": "1.0.0",
+    "sourceLedger": "sources/PROVENANCE.md",
+    "ruleSourceMap": "src/provenance.js"
+  },
+  "summary": {
+    "conclusion": "pass",
+    "total": 19,
+    "pass": 19,
+    "fail": 0,
+    "unknown": 0,
+    "exception": 0
+  },
+  "results": [
+    {
+      "path": "/positive",
+      "check": "status",
+      "status": "pass",
+      "message": "Final status 200",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/positive",
+      "check": "redirect",
+      "status": "pass",
+      "message": "0 hop(s), final path /positive",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/positive",
+      "check": "robots.noindex",
+      "status": "pass",
+      "message": "No noindex directive found",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/positive",
+      "check": "robots.disallow",
+      "status": "pass",
+      "message": "robots.txt allows /positive",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/positive",
+      "check": "canonical",
+      "status": "pass",
+      "message": "Canonical is /positive",
+      "source": "html-elements"
+    },
+    {
+      "path": "/positive",
+      "check": "metadata:title",
+      "status": "pass",
+      "message": "title is present",
+      "source": "html-elements"
+    },
+    {
+      "path": "/positive",
+      "check": "metadata:name:description",
+      "status": "pass",
+      "message": "name:description is present",
+      "source": "html-elements"
+    },
+    {
+      "path": "/positive",
+      "check": "metadata:property:og:title",
+      "status": "pass",
+      "message": "property:og:title is present",
+      "source": "html-elements"
+    },
+    {
+      "path": "/positive",
+      "check": "sitemap",
+      "status": "pass",
+      "message": "/positive is present in the sitemap",
+      "source": "sitemaps-protocol"
+    },
+    {
+      "path": "/positive",
+      "check": "link:/docs",
+      "status": "pass",
+      "message": "Internal link /docs is present",
+      "source": "html-elements"
+    },
+    {
+      "path": "/moved",
+      "check": "status",
+      "status": "pass",
+      "message": "Final status 200",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/moved",
+      "check": "redirect",
+      "status": "pass",
+      "message": "1 hop(s), final path /landing",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/moved",
+      "check": "robots.noindex",
+      "status": "pass",
+      "message": "No noindex directive found",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/moved",
+      "check": "robots.disallow",
+      "status": "pass",
+      "message": "robots.txt allows /moved",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/moved",
+      "check": "canonical",
+      "status": "pass",
+      "message": "Canonical is /landing",
+      "source": "html-elements"
+    },
+    {
+      "path": "/moved",
+      "check": "metadata:title",
+      "status": "pass",
+      "message": "title is present",
+      "source": "html-elements"
+    },
+    {
+      "path": "/moved",
+      "check": "metadata:name:description",
+      "status": "pass",
+      "message": "name:description is present",
+      "source": "html-elements"
+    },
+    {
+      "path": "/moved",
+      "check": "sitemap",
+      "status": "pass",
+      "message": "/moved is present in the sitemap",
+      "source": "sitemaps-protocol"
+    },
+    {
+      "path": "/moved",
+      "check": "link:/docs",
+      "status": "pass",
+      "message": "Internal link /docs is present",
+      "source": "html-elements"
+    }
+  ]
+}

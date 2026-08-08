@@ -1,0 +1,47 @@
+{
+  "$schema": "../../schema/release-guard.schema.json",
+  "version": 1,
+  "sitemapPath": "/sitemap.xml",
+  "criticalUrls": [
+    {
+      "path": "/auth",
+      "status": { "allowed": [200] },
+      "redirect": { "finalPath": "/auth", "expectedHops": 0 },
+      "robots": { "indexable": true },
+      "canonical": { "path": "/auth" },
+      "metadata": { "required": ["title", "name:description"] },
+      "sitemap": { "required": true },
+      "requiredInternalLinks": ["/docs"]
+    },
+    {
+      "path": "/bot-block",
+      "status": { "allowed": [200] },
+      "redirect": { "finalPath": "/bot-block", "expectedHops": 0 },
+      "robots": { "indexable": true },
+      "canonical": { "path": "/bot-block" },
+      "metadata": { "required": ["title", "name:description"] },
+      "sitemap": { "required": true },
+      "requiredInternalLinks": ["/docs"]
+    },
+    {
+      "path": "/js-shell",
+      "status": { "allowed": [200] },
+      "redirect": { "finalPath": "/js-shell", "expectedHops": 0 },
+      "robots": { "indexable": true },
+      "canonical": { "path": "/js-shell" },
+      "metadata": { "required": ["title", "name:description"] },
+      "sitemap": { "required": true },
+      "requiredInternalLinks": ["/docs"]
+    },
+    {
+      "path": "/temporary",
+      "status": { "allowed": [200] },
+      "redirect": { "finalPath": "/temporary", "expectedHops": 0 },
+      "robots": { "indexable": true },
+      "canonical": { "path": "/temporary" },
+      "metadata": { "required": ["title", "name:description"] },
+      "sitemap": { "required": true },
+      "requiredInternalLinks": ["/docs"]
+    }
+  ]
+}

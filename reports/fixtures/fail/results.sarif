@@ -1,0 +1,341 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Release Regression Guard",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "canonical",
+              "shortDescription": {
+                "text": "Release check: canonical"
+              },
+              "helpUri": "https://html.spec.whatwg.org/multipage/",
+              "properties": {
+                "source": "html-elements"
+              }
+            },
+            {
+              "id": "link:/docs",
+              "shortDescription": {
+                "text": "Release check: link:/docs"
+              },
+              "helpUri": "https://html.spec.whatwg.org/multipage/",
+              "properties": {
+                "source": "html-elements"
+              }
+            },
+            {
+              "id": "metadata:name:description",
+              "shortDescription": {
+                "text": "Release check: metadata:name:description"
+              },
+              "helpUri": "https://html.spec.whatwg.org/multipage/",
+              "properties": {
+                "source": "html-elements"
+              }
+            },
+            {
+              "id": "metadata:title",
+              "shortDescription": {
+                "text": "Release check: metadata:title"
+              },
+              "helpUri": "https://html.spec.whatwg.org/multipage/",
+              "properties": {
+                "source": "html-elements"
+              }
+            },
+            {
+              "id": "robots.disallow",
+              "shortDescription": {
+                "text": "Release check: robots.disallow"
+              },
+              "helpUri": "https://www.rfc-editor.org/rfc/rfc9309",
+              "properties": {
+                "source": "robots-exclusion"
+              }
+            },
+            {
+              "id": "robots.noindex",
+              "shortDescription": {
+                "text": "Release check: robots.noindex"
+              },
+              "helpUri": "https://www.rfc-editor.org/rfc/rfc9309",
+              "properties": {
+                "source": "robots-exclusion"
+              }
+            },
+            {
+              "id": "sitemap",
+              "shortDescription": {
+                "text": "Release check: sitemap"
+              },
+              "helpUri": "https://www.sitemaps.org/protocol.html",
+              "properties": {
+                "source": "sitemaps-protocol"
+              }
+            },
+            {
+              "id": "status",
+              "shortDescription": {
+                "text": "Release check: status"
+              },
+              "helpUri": "https://www.rfc-editor.org/rfc/rfc9110",
+              "properties": {
+                "source": "http-semantics"
+              }
+            }
+          ]
+        }
+      },
+      "automationDetails": {
+        "id": "release-regression-guard/"
+      },
+      "results": [
+        {
+          "ruleId": "robots.noindex",
+          "level": "error",
+          "message": {
+            "text": "/negative: noindex directive present"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "release-guard.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/negative"
+          }
+        },
+        {
+          "ruleId": "robots.disallow",
+          "level": "error",
+          "message": {
+            "text": "/negative: robots.txt disallows /negative"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "release-guard.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/negative"
+          }
+        },
+        {
+          "ruleId": "canonical",
+          "level": "error",
+          "message": {
+            "text": "/negative: Expected one canonical /negative; observed /wrong-canonical"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "release-guard.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/negative"
+          }
+        },
+        {
+          "ruleId": "metadata:title",
+          "level": "error",
+          "message": {
+            "text": "/negative: title is missing or blank"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "release-guard.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/negative"
+          }
+        },
+        {
+          "ruleId": "metadata:name:description",
+          "level": "error",
+          "message": {
+            "text": "/negative: name:description is missing or blank"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "release-guard.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/negative"
+          }
+        },
+        {
+          "ruleId": "sitemap",
+          "level": "error",
+          "message": {
+            "text": "/negative: /negative is missing from the sitemap"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "release-guard.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/negative"
+          }
+        },
+        {
+          "ruleId": "link:/docs",
+          "level": "error",
+          "message": {
+            "text": "/negative: Required internal link /docs is missing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "release-guard.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/negative"
+          }
+        },
+        {
+          "ruleId": "status",
+          "level": "error",
+          "message": {
+            "text": "/not-found: Expected 200, received 404"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "release-guard.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/not-found"
+          }
+        },
+        {
+          "ruleId": "canonical",
+          "level": "error",
+          "message": {
+            "text": "/not-found: Expected one canonical /not-found; observed missing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "release-guard.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/not-found"
+          }
+        },
+        {
+          "ruleId": "metadata:title",
+          "level": "error",
+          "message": {
+            "text": "/not-found: title is missing or blank"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "release-guard.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/not-found"
+          }
+        },
+        {
+          "ruleId": "metadata:name:description",
+          "level": "error",
+          "message": {
+            "text": "/not-found: name:description is missing or blank"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "release-guard.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/not-found"
+          }
+        },
+        {
+          "ruleId": "sitemap",
+          "level": "error",
+          "message": {
+            "text": "/not-found: /not-found is missing from the sitemap"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "release-guard.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/not-found"
+          }
+        }
+      ]
+    }
+  ]
+}

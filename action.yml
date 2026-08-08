@@ -1,0 +1,34 @@
+name: Critical URL SEO Release Guard
+description: Check declared critical URLs after a deploy and produce JSON, SARIF, and Markdown reports
+author: Release Regression Guard contributors
+inputs:
+  manifest:
+    description: Path to the expectation manifest
+    required: false
+    default: release-guard.json
+  target-base:
+    description: Preview or production origin to inspect
+    required: true
+  report-dir:
+    description: Directory for JSON, SARIF, and Markdown reports
+    required: false
+    default: release-guard-report
+  timeout-ms:
+    description: Per-request timeout in milliseconds
+    required: false
+    default: "10000"
+outputs:
+  conclusion:
+    description: pass, fail, or unknown
+  json-report:
+    description: Path to the JSON report
+  sarif-report:
+    description: Path to the SARIF report
+  markdown-report:
+    description: Path to the Markdown report
+runs:
+  using: node20
+  main: action/index.js
+branding:
+  icon: shield
+  color: blue
