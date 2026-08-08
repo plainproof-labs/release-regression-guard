@@ -43,7 +43,7 @@ jobs:
   release-regression:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Check declared critical URLs
         id: release_guard
@@ -55,7 +55,7 @@ jobs:
 
       - name: Keep JSON, SARIF, and Markdown reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: release-regression-guard-report
           path: release-guard-report/
