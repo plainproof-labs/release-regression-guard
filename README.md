@@ -141,8 +141,9 @@ needed to remediate a regression.
 
 ## Reproduce the evidence locally
 
-Node.js 20 or newer is required. There are no package dependencies and no live
-website or secret is needed for the fixture suite.
+The GitHub Action declares the Node.js 24 runtime. Local reproduction supports
+Node.js 20 or newer. There are no package dependencies and no live website or
+secret is needed for the fixture suite.
 
 ```text
 npm test

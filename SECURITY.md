@@ -2,8 +2,7 @@
 
 ## Supported release
 
-The latest published v1 release receives security fixes. Before the first public
-release, there is no supported public version.
+The latest published v1 release receives security fixes.
 
 ## Report a vulnerability
 

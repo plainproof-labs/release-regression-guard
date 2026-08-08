@@ -1,6 +1,6 @@
 {
   "name": "release-regression-guard",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Post-deploy release checks for repository-declared critical URLs",
   "private": true,
   "type": "commonjs",

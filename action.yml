@@ -27,7 +27,7 @@ outputs:
   markdown-report:
     description: Path to the Markdown report
 runs:
-  using: node20
+  using: node24
   main: action/index.js
 branding:
   icon: shield

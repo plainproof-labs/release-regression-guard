@@ -2,6 +2,12 @@
 
 All notable changes to Release Regression Guard are documented here.
 
+## 1.0.1 - 2026-08-08
+
+- Declare the Node.js 24 Action runtime for current GitHub-hosted runners.
+- Clarify the published installation instructions.
+- Keep inputs, outputs, checks, reports, and network behavior unchanged.
+
 ## 1.0.0 - 2026-08-08
 
 - Add the manifest-driven JavaScript Action for declared critical URL checks.
@@ -12,6 +18,3 @@ All notable changes to Release Regression Guard are documented here.
   Action end-to-end verification.
 - Add public installation, artifact retrieval, security, privacy, provenance,
   release, and Marketplace documentation.
-
-The release date remains unset until a human approves the neutral public
-identity, repository publication, v1 tag/release, and Marketplace publication.
