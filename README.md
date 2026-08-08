@@ -20,9 +20,8 @@ The first release checks only:
 
 ## Install
 
-Use the public repository owner in the Action reference below. The
-pre-publication package keeps `plainproof-labs` as a fail-visible placeholder until
-the approved neutral owner completes the human-controlled release.
+Install the published Action from `plainproof-labs/release-regression-guard@v1`
+as shown below.
 
 1. Copy [`examples/release-guard.json`](examples/release-guard.json) to
    `release-guard.json` in the repository being checked.
