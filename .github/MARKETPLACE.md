@@ -2,7 +2,7 @@
 
 ## Release title
 
-Release Regression Guard v1.0.1
+Release Regression Guard v1.1.0
 
 ## Marketplace category
 
@@ -20,7 +20,7 @@ SEO and release owners. It checks declared critical URL status and same-origin
 redirects, robots/noindex, canonical, required metadata, sitemap membership,
 and required internal links.
 
-Version 1.0.1 declares the Node.js 24 runtime for current GitHub-hosted runners
+Version 1.1.0 declares the Node.js 24 runtime for current GitHub-hosted runners
 without changing inputs, outputs, checks, reports, or network behavior.
 
 Authentication, blocking, temporary transport or server failures, and

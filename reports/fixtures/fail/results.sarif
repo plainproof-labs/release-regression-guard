@@ -6,7 +6,7 @@
       "tool": {
         "driver": {
           "name": "Release Regression Guard",
-          "version": "1.0.0",
+          "version": "1.1.0",
           "rules": [
             {
               "id": "canonical",
@@ -49,6 +49,16 @@
               }
             },
             {
+              "id": "redirect",
+              "shortDescription": {
+                "text": "Release check: redirect"
+              },
+              "helpUri": "https://www.rfc-editor.org/rfc/rfc9110",
+              "properties": {
+                "source": "http-semantics"
+              }
+            },
+            {
               "id": "robots.disallow",
               "shortDescription": {
                 "text": "Release check: robots.disallow"
@@ -63,9 +73,9 @@
               "shortDescription": {
                 "text": "Release check: robots.noindex"
               },
-              "helpUri": "https://www.rfc-editor.org/rfc/rfc9309",
+              "helpUri": "https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag",
               "properties": {
-                "source": "robots-exclusion"
+                "source": "robots-directives"
               }
             },
             {
@@ -105,7 +115,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "release-guard.json"
+                  "uri": "fixtures/manifests/negative.json"
                 }
               }
             }
@@ -125,7 +135,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "release-guard.json"
+                  "uri": "fixtures/manifests/negative.json"
                 }
               }
             }
@@ -145,7 +155,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "release-guard.json"
+                  "uri": "fixtures/manifests/negative.json"
                 }
               }
             }
@@ -165,7 +175,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "release-guard.json"
+                  "uri": "fixtures/manifests/negative.json"
                 }
               }
             }
@@ -185,7 +195,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "release-guard.json"
+                  "uri": "fixtures/manifests/negative.json"
                 }
               }
             }
@@ -205,7 +215,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "release-guard.json"
+                  "uri": "fixtures/manifests/negative.json"
                 }
               }
             }
@@ -225,7 +235,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "release-guard.json"
+                  "uri": "fixtures/manifests/negative.json"
                 }
               }
             }
@@ -245,7 +255,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "release-guard.json"
+                  "uri": "fixtures/manifests/negative.json"
                 }
               }
             }
@@ -265,7 +275,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "release-guard.json"
+                  "uri": "fixtures/manifests/negative.json"
                 }
               }
             }
@@ -285,7 +295,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "release-guard.json"
+                  "uri": "fixtures/manifests/negative.json"
                 }
               }
             }
@@ -305,7 +315,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "release-guard.json"
+                  "uri": "fixtures/manifests/negative.json"
                 }
               }
             }
@@ -325,7 +335,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "release-guard.json"
+                  "uri": "fixtures/manifests/negative.json"
                 }
               }
             }
@@ -333,6 +343,126 @@
           "properties": {
             "status": "fail",
             "criticalPath": "/not-found"
+          }
+        },
+        {
+          "ruleId": "status",
+          "level": "error",
+          "message": {
+            "text": "/bad-redirect: Redirect could not be completed: invalid-redirect-location"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/negative.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/bad-redirect"
+          }
+        },
+        {
+          "ruleId": "redirect",
+          "level": "error",
+          "message": {
+            "text": "/bad-redirect: Redirect could not be completed: invalid-redirect-location"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/negative.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/bad-redirect"
+          }
+        },
+        {
+          "ruleId": "canonical",
+          "level": "error",
+          "message": {
+            "text": "/bad-redirect: Expected one canonical /bad-redirect; observed missing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/negative.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/bad-redirect"
+          }
+        },
+        {
+          "ruleId": "metadata:title",
+          "level": "error",
+          "message": {
+            "text": "/bad-redirect: title is missing or blank"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/negative.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/bad-redirect"
+          }
+        },
+        {
+          "ruleId": "metadata:name:description",
+          "level": "error",
+          "message": {
+            "text": "/bad-redirect: name:description is missing or blank"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/negative.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/bad-redirect"
+          }
+        },
+        {
+          "ruleId": "sitemap",
+          "level": "error",
+          "message": {
+            "text": "/bad-redirect: /bad-redirect is missing from the sitemap"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/negative.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "fail",
+            "criticalPath": "/bad-redirect"
           }
         }
       ]

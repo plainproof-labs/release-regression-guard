@@ -1,5 +1,4 @@
 {
-  "$schema": "../schema/release-guard.schema.json",
   "version": 1,
   "sitemapPath": "/sitemap.xml",
   "criticalUrls": [

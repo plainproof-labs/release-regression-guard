@@ -14,10 +14,13 @@ async function main() {
   const site = await startFixtureServer();
   try {
     for (const scenario of [
-      { fixture: 'positive', directory: 'pass', conclusion: 'pass' },
-      { fixture: 'negative', directory: 'fail', conclusion: 'fail' }
+      { fixture: 'positive', directory: path.join(reportRoot, 'pass'), conclusion: 'pass' },
+      { fixture: 'negative', directory: path.join(reportRoot, 'fail'), conclusion: 'fail' },
+      { fixture: 'exception', directory: path.join(reportRoot, 'exception'), conclusion: 'pass' },
+      { fixture: 'unknown', directory: path.join(reportRoot, 'unknown'), conclusion: 'unknown' },
+      { fixture: 'positive', directory: path.join(root, 'reports/local-release'), conclusion: 'pass', label: 'local-release' }
     ]) {
-      const reportDir = path.join(reportRoot, scenario.directory);
+      const reportDir = scenario.directory;
       fs.mkdirSync(reportDir, { recursive: true });
       const { report } = await run({
         manifestPath: path.join(root, `fixtures/manifests/${scenario.fixture}.json`),
@@ -29,7 +32,7 @@ async function main() {
       if (report.summary.conclusion !== scenario.conclusion) {
         throw new Error(`${scenario.fixture} produced ${report.summary.conclusion}, expected ${scenario.conclusion}`);
       }
-      process.stdout.write(`${scenario.directory}: ${report.summary.conclusion} (${report.summary.total} checks)\n`);
+      process.stdout.write(`${scenario.label || path.basename(scenario.directory)}: ${report.summary.conclusion} (${report.summary.total} checks)\n`);
     }
   } finally {
     await site.close();

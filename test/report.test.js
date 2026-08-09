@@ -2,7 +2,8 @@
 
 const assert = require('node:assert/strict');
 const test = require('node:test');
-const { buildReport, toMarkdown, toSarif } = require('../src/report');
+const { version } = require('../package.json');
+const { PROVENANCE, buildReport, toMarkdown, toSarif } = require('../src/report');
 
 const RESULTS = [
   { path: '/ok', check: 'status', status: 'pass', message: 'Final status 200' },
@@ -16,6 +17,7 @@ test('JSON summary has a stable shape and fail dominates unknown', () => {
   assert.deepEqual(report.summary, { conclusion: 'fail', total: 4, pass: 1, fail: 1, unknown: 1, exception: 1 });
   assert.equal(report.generatedAt, '2026-08-08T00:00:00.000Z');
   assert.equal(report.provenance.schemaVersion, 1);
+  assert.equal(PROVENANCE.implementationVersion, version);
   assert.equal(Object.hasOwn(report, 'targetBase'), false);
   assert.deepEqual(report.results.map((item) => item.source), ['http-semantics', 'html-elements', 'html-elements', 'sitemaps-protocol']);
 });
@@ -28,8 +30,10 @@ test('Markdown contains the complete result table and ambiguity note', () => {
 });
 
 test('SARIF includes actionable non-pass results with correct levels', () => {
-  const sarif = toSarif(buildReport(RESULTS, new Date('2026-08-08T00:00:00Z')));
+  const sarif = toSarif(buildReport(RESULTS, new Date('2026-08-08T00:00:00Z')), 'config/critical-release.json');
   assert.equal(sarif.version, '2.1.0');
+  assert.equal(sarif.runs[0].tool.driver.version, version);
   assert.deepEqual(sarif.runs[0].results.map((item) => item.level), ['error', 'warning', 'note']);
   assert.equal(sarif.runs[0].results.some((item) => item.message.text.includes('/ok')), false);
+  assert.equal(sarif.runs[0].results.every((item) => item.locations[0].physicalLocation.artifactLocation.uri === 'config/critical-release.json'), true);
 });

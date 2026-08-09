@@ -3,7 +3,7 @@
 const assert = require('node:assert/strict');
 const path = require('node:path');
 const test = require('node:test');
-const { checkManifest } = require('../src/checker');
+const { checkManifest, parseSitemap, robotsDisallows } = require('../src/checker');
 const { loadManifest } = require('../src/manifest');
 const { startFixtureServer } = require('./helpers/fixture-server');
 
@@ -19,6 +19,7 @@ test('positive fixture passes status, redirect, robots, canonical, metadata, sit
   assert.ok(results.length > 0);
   assert.deepEqual([...new Set(results.map((item) => item.status))], ['pass']);
   assert.ok(results.some((item) => item.path === '/moved' && item.check === 'redirect' && item.status === 'pass'));
+  assert.equal(results.find((item) => item.path === '/negative/allowed' && item.check === 'robots.disallow').status, 'pass');
 });
 
 test('negative fixture reports each concrete regression as fail', async () => {
@@ -27,9 +28,25 @@ test('negative fixture reports each concrete regression as fail', async () => {
   for (const expected of [
     '/negative|robots.noindex', '/negative|robots.disallow', '/negative|canonical',
     '/negative|metadata:title', '/negative|metadata:name:description', '/negative|sitemap',
-    '/negative|link:/docs', '/not-found|status'
+    '/negative|link:/docs', '/not-found|status', '/bad-redirect|status', '/bad-redirect|redirect'
   ]) assert.ok(failed.has(expected), `missing ${expected}`);
   assert.equal(results.some((item) => item.status === 'unknown'), false);
+});
+
+test('robots wildcard groups use all consecutive agents, longest match, and Allow on a tie', () => {
+  assert.equal(robotsDisallows('User-agent: *\nUser-agent: fixturebot\nDisallow: /private\n', '/private/page'), true);
+  assert.equal(robotsDisallows('User-agent: *\nAllow: /private/public\nDisallow: /private\n', '/private/public/page'), false);
+  assert.equal(robotsDisallows('User-agent: *\nDisallow: /same\nAllow: /same\n', '/same/page'), false);
+});
+
+test('sitemap membership requires an absolute same-origin URL entry outside XML comments', () => {
+  const resource = (body) => ({ kind: 'response', status: 200, body });
+  const origin = 'https://example.test';
+  assert.equal(parseSitemap(resource('<urlset><url><loc>https://example.test/ok</loc></url></urlset>'), origin).paths.has('/ok'), true);
+  assert.equal(parseSitemap(resource('<urlset><url><loc>/relative</loc></url></urlset>'), origin).paths.has('/relative'), false);
+  assert.equal(parseSitemap(resource('<urlset><!-- <url><loc>https://example.test/commented</loc></url> --></urlset>'), origin).paths.has('/commented'), false);
+  assert.equal(parseSitemap(resource('<urlset><!-- <url><loc>https://example.test/unclosed</loc></url>'), origin).paths.has('/unclosed'), false);
+  assert.equal(parseSitemap(resource('<urlset><url><loc>https://outside.test/foreign</loc></url></urlset>'), origin).paths.has('/foreign'), false);
 });
 
 test('active documented exception is explicit and an expired one fails', async () => {

@@ -4,14 +4,14 @@
   "provenance": {
     "schema": "https://release-regression-guard.invalid/schema/v1.json",
     "schemaVersion": 1,
-    "implementationVersion": "1.0.0",
+    "implementationVersion": "1.1.0",
     "sourceLedger": "sources/PROVENANCE.md",
     "ruleSourceMap": "src/provenance.js"
   },
   "summary": {
     "conclusion": "pass",
-    "total": 19,
-    "pass": 19,
+    "total": 28,
+    "pass": 28,
     "fail": 0,
     "unknown": 0,
     "exception": 0
@@ -36,7 +36,7 @@
       "check": "robots.noindex",
       "status": "pass",
       "message": "No noindex directive found",
-      "source": "robots-exclusion"
+      "source": "robots-directives"
     },
     {
       "path": "/positive",
@@ -106,7 +106,7 @@
       "check": "robots.noindex",
       "status": "pass",
       "message": "No noindex directive found",
-      "source": "robots-exclusion"
+      "source": "robots-directives"
     },
     {
       "path": "/moved",
@@ -145,6 +145,69 @@
     },
     {
       "path": "/moved",
+      "check": "link:/docs",
+      "status": "pass",
+      "message": "Internal link /docs is present",
+      "source": "html-elements"
+    },
+    {
+      "path": "/negative/allowed",
+      "check": "status",
+      "status": "pass",
+      "message": "Final status 200",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/negative/allowed",
+      "check": "redirect",
+      "status": "pass",
+      "message": "0 hop(s), final path /negative/allowed",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/negative/allowed",
+      "check": "robots.noindex",
+      "status": "pass",
+      "message": "No noindex directive found",
+      "source": "robots-directives"
+    },
+    {
+      "path": "/negative/allowed",
+      "check": "robots.disallow",
+      "status": "pass",
+      "message": "robots.txt allows /negative/allowed",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/negative/allowed",
+      "check": "canonical",
+      "status": "pass",
+      "message": "Canonical is /negative/allowed",
+      "source": "html-elements"
+    },
+    {
+      "path": "/negative/allowed",
+      "check": "metadata:title",
+      "status": "pass",
+      "message": "title is present",
+      "source": "html-elements"
+    },
+    {
+      "path": "/negative/allowed",
+      "check": "metadata:name:description",
+      "status": "pass",
+      "message": "name:description is present",
+      "source": "html-elements"
+    },
+    {
+      "path": "/negative/allowed",
+      "check": "sitemap",
+      "status": "pass",
+      "message": "/negative/allowed is present in the sitemap",
+      "source": "sitemaps-protocol"
+    },
+    {
+      "path": "/negative/allowed",
       "check": "link:/docs",
       "status": "pass",
       "message": "Internal link /docs is present",

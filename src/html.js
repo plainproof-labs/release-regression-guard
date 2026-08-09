@@ -8,24 +8,37 @@ function attributes(tag) {
   return values;
 }
 
-function parseHtml(html, baseOrigin) {
-  const titleMatch = html.match(/<title\b[^>]*>([\s\S]*?)<\/title\s*>/i);
+function parseHtml(html, documentUrl) {
+  const withoutComments = html.replace(/<!--[\s\S]*?(?:-->|$)/g, '');
+  const documentMarkup = withoutComments
+    .replace(/<(script|style|template)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, '')
+    .replace(/<(script|style|template)\b[^>]*>[\s\S]*$/gi, '');
+  const targetOrigin = new URL(documentUrl).origin;
+  const titleMatch = documentMarkup.match(/<title\b[^>]*>([\s\S]*?)<\/title\s*>/i);
   const metadata = new Map();
-  for (const match of html.matchAll(/<meta\b[^>]*>/gi)) {
+  const metaRobots = [];
+  for (const match of documentMarkup.matchAll(/<meta\b[^>]*>/gi)) {
     const attrs = attributes(match[0]);
-    if (attrs.name) metadata.set(`name:${attrs.name.toLowerCase()}`, attrs.content || '');
-    if (attrs.property) metadata.set(`property:${attrs.property.toLowerCase()}`, attrs.content || '');
+    if (attrs.name) {
+      const key = `name:${attrs.name.toLowerCase()}`;
+      rememberPresentValue(metadata, key, attrs.content || '');
+      if (['name:robots', 'name:googlebot'].includes(key)) metaRobots.push(...directives(attrs.content || ''));
+    }
+    if (attrs.property) rememberPresentValue(metadata, `property:${attrs.property.toLowerCase()}`, attrs.content || '');
   }
+  const baseMatch = documentMarkup.match(/<base\b[^>]*>/i);
+  const baseAttributes = baseMatch ? attributes(baseMatch[0]) : {};
+  const resolutionBase = resolveBase(baseAttributes.href, documentUrl);
   const canonicals = [];
   const links = new Set();
-  for (const match of html.matchAll(/<(?:link|a)\b[^>]*>/gi)) {
+  for (const match of documentMarkup.matchAll(/<(?:link|a)\b[^>]*>/gi)) {
     const tag = match[0];
     const attrs = attributes(tag);
     if (/^<link/i.test(tag) && (attrs.rel || '').toLowerCase().split(/\s+/).includes('canonical') && attrs.href) {
-      canonicals.push(normalizeHref(attrs.href, baseOrigin));
+      canonicals.push(normalizeHref(decodeText(attrs.href), resolutionBase, targetOrigin));
     }
     if (/^<a/i.test(tag) && attrs.href) {
-      const normalized = normalizeInternalHref(attrs.href, baseOrigin);
+      const normalized = normalizeInternalHref(decodeText(attrs.href), resolutionBase, targetOrigin);
       if (normalized) links.add(normalized);
     }
   }
@@ -34,28 +47,38 @@ function parseHtml(html, baseOrigin) {
     metadata,
     canonicals,
     links,
-    metaRobots: collectMetaRobots(metadata),
-    javascriptAmbiguous: isJavascriptShell(html)
+    metaRobots,
+    javascriptAmbiguous: isJavascriptShell(withoutComments)
   };
 }
 
-function collectMetaRobots(metadata) {
-  return ['name:robots', 'name:googlebot']
-    .flatMap((key) => (metadata.get(key) || '').toLowerCase().split(/[\s,]+/))
-    .filter(Boolean);
+function rememberPresentValue(metadata, key, value) {
+  if (!metadata.has(key) || (metadata.get(key) || '').trim() === '') metadata.set(key, value);
 }
 
-function normalizeInternalHref(href, baseOrigin) {
+function directives(value) {
+  return String(value).toLowerCase().split(/[\s,]+/).filter(Boolean);
+}
+
+function resolveBase(href, documentUrl) {
+  if (!href) return documentUrl;
   try {
-    const url = new URL(href, baseOrigin);
-    return url.origin === baseOrigin && ['http:', 'https:'].includes(url.protocol) ? `${url.pathname}${url.search}` : null;
+    const resolved = new URL(decodeText(href), documentUrl);
+    return ['http:', 'https:'].includes(resolved.protocol) ? resolved.href : documentUrl;
+  } catch { return documentUrl; }
+}
+
+function normalizeInternalHref(href, resolutionBase, targetOrigin) {
+  try {
+    const url = new URL(href, resolutionBase);
+    return url.origin === targetOrigin && ['http:', 'https:'].includes(url.protocol) ? `${url.pathname}${url.search}` : null;
   } catch { return null; }
 }
 
-function normalizeHref(href, baseOrigin) {
+function normalizeHref(href, resolutionBase, targetOrigin) {
   try {
-    const url = new URL(href, baseOrigin);
-    return url.origin === baseOrigin ? `${url.pathname}${url.search}` : `[cross-origin]${url.pathname}${url.search}`;
+    const url = new URL(href, resolutionBase);
+    return url.origin === targetOrigin ? `${url.pathname}${url.search}` : `[cross-origin]${url.pathname}${url.search}`;
   } catch { return '[invalid]'; }
 }
 
@@ -71,4 +94,4 @@ function decodeText(value) {
   return value.replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>').replace(/&#39;/g, "'").replace(/&quot;/gi, '"');
 }
 
-module.exports = { attributes, parseHtml };
+module.exports = { attributes, directives, parseHtml };

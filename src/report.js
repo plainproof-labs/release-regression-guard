@@ -2,12 +2,13 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const { version: IMPLEMENTATION_VERSION } = require('../package.json');
 const { sourceForCheck } = require('./provenance');
 
 const PROVENANCE = Object.freeze({
   schema: 'https://release-regression-guard.invalid/schema/v1.json',
   schemaVersion: 1,
-  implementationVersion: '1.0.0',
+  implementationVersion: IMPLEMENTATION_VERSION,
   sourceLedger: 'sources/PROVENANCE.md',
   ruleSourceMap: 'src/provenance.js'
 });
@@ -43,7 +44,7 @@ function toMarkdown(report) {
   return lines.join('\n');
 }
 
-function toSarif(report) {
+function toSarif(report, manifestUri = 'release-guard.json') {
   const included = report.results.filter((item) => item.status !== 'pass');
   const rules = [...new Set(included.map((item) => item.check))].sort().map((id) => {
     const source = sourceForCheck(id);
@@ -64,14 +65,14 @@ function toSarif(report) {
         ruleId: item.check,
         level: item.status === 'fail' ? 'error' : item.status === 'unknown' ? 'warning' : 'note',
         message: { text: `${item.path}: ${item.message}` },
-        locations: [{ physicalLocation: { artifactLocation: { uri: 'release-guard.json' } } }],
+        locations: [{ physicalLocation: { artifactLocation: { uri: manifestUri } } }],
         properties: { status: item.status, criticalPath: item.path }
       }))
     }]
   };
 }
 
-function writeReports(report, reportDir) {
+function writeReports(report, reportDir, manifestUri = 'release-guard.json') {
   fs.mkdirSync(reportDir, { recursive: true });
   const files = {
     json: path.join(reportDir, 'report.json'),
@@ -79,7 +80,7 @@ function writeReports(report, reportDir) {
     markdown: path.join(reportDir, 'report.md')
   };
   fs.writeFileSync(files.json, `${JSON.stringify(report, null, 2)}\n`);
-  fs.writeFileSync(files.sarif, `${JSON.stringify(toSarif(report), null, 2)}\n`);
+  fs.writeFileSync(files.sarif, `${JSON.stringify(toSarif(report, manifestUri), null, 2)}\n`);
   fs.writeFileSync(files.markdown, toMarkdown(report));
   return files;
 }

@@ -2,7 +2,7 @@
 
 Conclusion: **FAIL**
 
-Checks: 17 total · 5 pass · 12 fail · 0 unknown · 0 exception
+Checks: 25 total · 7 pass · 18 fail · 0 unknown · 0 exception
 
 | Critical path | Check | Result | Evidence |
 | --- | --- | --- | --- |
@@ -23,6 +23,14 @@ Checks: 17 total · 5 pass · 12 fail · 0 unknown · 0 exception
 | /not-found | metadata:title | FAIL | title is missing or blank |
 | /not-found | metadata:name:description | FAIL | name:description is missing or blank |
 | /not-found | sitemap | FAIL | /not-found is missing from the sitemap |
+| /bad-redirect | status | FAIL | Redirect could not be completed: invalid-redirect-location |
+| /bad-redirect | redirect | FAIL | Redirect could not be completed: invalid-redirect-location |
+| /bad-redirect | robots.noindex | PASS | No noindex directive found |
+| /bad-redirect | robots.disallow | PASS | robots.txt allows /bad-redirect |
+| /bad-redirect | canonical | FAIL | Expected one canonical /bad-redirect; observed missing |
+| /bad-redirect | metadata:title | FAIL | title is missing or blank |
+| /bad-redirect | metadata:name:description | FAIL | name:description is missing or blank |
+| /bad-redirect | sitemap | FAIL | /bad-redirect is missing from the sitemap |
 
 Unknown is preserved for authentication, blocking, ambiguous JavaScript, transport, and temporary server states. It is not a pass or fail.
 

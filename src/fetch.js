@@ -42,7 +42,12 @@ async function fetchPage(base, requestedPath, options = {}) {
       if (!location) {
         return { kind: 'response', status: response.status, body: '', headers: response.headers, chain, finalPath: pathOf(current), redirectError: 'redirect-without-location' };
       }
-      const next = new URL(location, current);
+      let next;
+      try {
+        next = new URL(location, current);
+      } catch {
+        return { kind: 'response', status: response.status, body: '', headers: response.headers, chain, finalPath: pathOf(current), redirectError: 'invalid-redirect-location' };
+      }
       chain.push({ status: response.status, from: pathOf(current), to: next.origin === origin ? pathOf(next) : '[cross-origin]' });
       if (next.origin !== origin) {
         return { kind: 'response', status: response.status, body: '', headers: response.headers, chain, finalPath: '[cross-origin]', redirectError: 'cross-origin-redirect-not-followed' };

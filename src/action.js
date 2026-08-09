@@ -4,6 +4,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { run } = require('./run');
 
+const MAX_JOB_SUMMARY_BYTES = 200 * 1024;
+
 async function runAction(environment = process.env, output = process.stdout) {
   const manifestInput = input(environment, 'manifest') || 'release-guard.json';
   const targetBase = input(environment, 'target-base');
@@ -14,13 +16,34 @@ async function runAction(environment = process.env, output = process.stdout) {
   const reportDir = path.resolve(reportInput);
   const { report, files } = await run({ manifestPath, targetBase, reportDir, timeoutMs: Number(timeoutInput) });
   emitAnnotations(report, portableInputPath(manifestPath), output);
+  const jobSummary = appendJobSummary(environment, files.markdown);
   setOutput(environment, 'conclusion', report.summary.conclusion);
   setOutput(environment, 'json-report', portableOutputPath(files.json));
   setOutput(environment, 'sarif-report', portableOutputPath(files.sarif));
   setOutput(environment, 'markdown-report', portableOutputPath(files.markdown));
   output.write(`Release Regression Guard completed: ${report.summary.conclusion} (${report.summary.total} checks)\n`);
   if (report.summary.fail > 0) process.exitCode = 1;
-  return { report, files };
+  return { report, files, jobSummary };
+}
+
+function appendJobSummary(environment, markdownFile) {
+  if (!environment.GITHUB_STEP_SUMMARY) return { written: false, truncated: false, bytes: 0 };
+  const markdown = fs.readFileSync(markdownFile, 'utf8');
+  const notice = '\n\n> Job Summary truncated at 200 KiB. Download the JSON, SARIF, and Markdown report artifacts for the complete result.\n';
+  const truncated = Buffer.byteLength(markdown, 'utf8') > MAX_JOB_SUMMARY_BYTES;
+  const value = truncated
+    ? `${truncateUtf8(markdown, MAX_JOB_SUMMARY_BYTES - Buffer.byteLength(notice, 'utf8'))}${notice}`
+    : `${markdown.endsWith('\n') ? markdown : `${markdown}\n`}`;
+  fs.appendFileSync(environment.GITHUB_STEP_SUMMARY, value);
+  return { written: true, truncated, bytes: Buffer.byteLength(value, 'utf8') };
+}
+
+function truncateUtf8(value, maximumBytes) {
+  const buffer = Buffer.from(value, 'utf8');
+  if (buffer.length <= maximumBytes) return value;
+  let end = maximumBytes;
+  while (end > 0 && (buffer[end] & 0xC0) === 0x80) end -= 1;
+  return buffer.subarray(0, end).toString('utf8');
 }
 
 function emitAnnotations(report, manifestPath, output = process.stdout) {
@@ -70,4 +93,14 @@ function escapeProperty(value) {
   return escapeData(value).replace(/:/g, '%3A').replace(/,/g, '%2C');
 }
 
-module.exports = { emitAnnotations, input, portableInputPath, portableOutputPath, runAction, setOutput };
+module.exports = {
+  MAX_JOB_SUMMARY_BYTES,
+  appendJobSummary,
+  emitAnnotations,
+  input,
+  portableInputPath,
+  portableOutputPath,
+  runAction,
+  setOutput,
+  truncateUtf8
+};

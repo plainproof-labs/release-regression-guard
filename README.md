@@ -1,9 +1,11 @@
 # Release Regression Guard
 
-Release Regression Guard is one GitHub Action for technical SEO and release
-owners: immediately after a deploy, compare repository-declared critical URLs
-with a small expectation manifest and keep the resulting report as a workflow
-artifact.
+Release Regression Guard helps technical SEO and release owners catch broken
+redirects, accidental `noindex`, canonical/metadata regressions, sitemap gaps,
+and missing internal links on declared critical URLs immediately after a
+deploy. One GitHub Action compares a small repository-owned manifest and puts a
+reviewable report in the workflow Job Summary, with JSON, SARIF, and Markdown
+artifacts retained for evidence.
 
 Every check is reported as `pass`, `fail`, `unknown`, or a documented temporary
 `exception`. Authentication, blocking, temporary transport failures, and
@@ -18,10 +20,16 @@ The first release checks only:
 - sitemap membership; and
 - declared internal links.
 
+See the deterministic evidence before installing: [PASS](reports/fixtures/pass/report.md),
+[FAIL](reports/fixtures/fail/report.md), [UNKNOWN](reports/fixtures/unknown/report.md),
+and [time-limited EXCEPTION](reports/fixtures/exception/report.md). These are
+synthetic results, not claims about a live site or product outcome.
+
 ## Install
 
-Install the published Action from `plainproof-labs/release-regression-guard@v1`
-as shown below.
+Use the public repository owner in the Action reference below. The
+pre-publication package keeps `plainproof-labs` as a fail-visible placeholder until
+the approved neutral owner completes the human-controlled release.
 
 1. Copy [`examples/release-guard.json`](examples/release-guard.json) to
    `release-guard.json` in the repository being checked.
@@ -78,6 +86,13 @@ Every critical URL explicitly declares every supported check. Paths must be
 origin-relative; credentials, hosts, arbitrary selectors, scripts, and
 analytics settings are rejected.
 
+The `$schema` property is optional at runtime. The copyable example omits it so
+the manifest works after being copied into another repository. To enable local
+editor validation, also copy `schema/release-guard.schema.json` and add
+`"$schema": "./schema/release-guard.schema.json"`. Literal whitespace, control
+characters, fragments, and network-path references beginning with `//` are
+rejected; percent-encode spaces in URL paths.
+
 ```json
 {
   "$schema": "./schema/release-guard.schema.json",
@@ -128,16 +143,19 @@ Every run creates:
 - `report.json`: stable machine-readable results; and
 - `results.sarif`: SARIF 2.1.0 results for compatible tooling.
 
+The Action also writes the generated Markdown to the GitHub Job Summary, so the
+conclusion and evidence are visible without downloading an artifact. GitHub
+limits summaries; this Action caps its contribution at 200 KiB and clearly
+points to the complete artifacts if truncation is required. The target origin
+and Action environment secrets are never added to the report or summary.
+
 `fail` emits a GitHub error annotation and fails the Action. `unknown` emits a
 warning but does not turn ambiguity into a failure. An active `exception`
 emits a notice. Download the `release-regression-guard-report` artifact even
 when the workflow fails, then start with `report.md`.
 
-The repository includes deterministic examples of a
-[`PASS` report](reports/fixtures/pass/report.md) and a
-[`FAIL` report](reports/fixtures/fail/report.md). The report intentionally omits
-the target origin; critical paths remain in the local report because they are
-needed to remediate a regression.
+The report intentionally omits the target origin; critical paths remain in the
+repository's workflow report because they are needed to remediate a regression.
 
 ## Reproduce the evidence locally
 
@@ -145,15 +163,24 @@ The GitHub Action declares the Node.js 24 runtime. Local reproduction supports
 Node.js 20 or newer. There are no package dependencies and no live website or
 secret is needed for the fixture suite.
 
+Regenerate all four synthetic report states and the local release report with
+one command:
+
+```text
+npm run evidence
+```
+
+Then run the unit/schema suite and the spawned Action entrypoint matrix:
+
 ```text
 npm test
 npm run e2e
-npm run evidence
 ```
 
 The complete repository-owned self-hosted example is
 [`self-hosted-example.yml`](.github/workflows/self-hosted-example.yml). It
-starts a deterministic localhost fixture on an operating-system-assigned port.
+starts a deterministic localhost fixture on an operating-system-assigned port,
+uses the Action-owned Job Summary, and retains all three report artifacts.
 
 For a local command-line check against an approved target:
 

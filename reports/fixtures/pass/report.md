@@ -2,7 +2,7 @@
 
 Conclusion: **PASS**
 
-Checks: 19 total · 19 pass · 0 fail · 0 unknown · 0 exception
+Checks: 28 total · 28 pass · 0 fail · 0 unknown · 0 exception
 
 | Critical path | Check | Result | Evidence |
 | --- | --- | --- | --- |
@@ -25,6 +25,15 @@ Checks: 19 total · 19 pass · 0 fail · 0 unknown · 0 exception
 | /moved | metadata:name:description | PASS | name:description is present |
 | /moved | sitemap | PASS | /moved is present in the sitemap |
 | /moved | link:/docs | PASS | Internal link /docs is present |
+| /negative/allowed | status | PASS | Final status 200 |
+| /negative/allowed | redirect | PASS | 0 hop(s), final path /negative/allowed |
+| /negative/allowed | robots.noindex | PASS | No noindex directive found |
+| /negative/allowed | robots.disallow | PASS | robots.txt allows /negative/allowed |
+| /negative/allowed | canonical | PASS | Canonical is /negative/allowed |
+| /negative/allowed | metadata:title | PASS | title is present |
+| /negative/allowed | metadata:name:description | PASS | name:description is present |
+| /negative/allowed | sitemap | PASS | /negative/allowed is present in the sitemap |
+| /negative/allowed | link:/docs | PASS | Internal link /docs is present |
 
 Unknown is preserved for authentication, blocking, ambiguous JavaScript, transport, and temporary server states. It is not a pass or fail.
 

@@ -1,0 +1,611 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Release Regression Guard",
+          "version": "1.1.0",
+          "rules": [
+            {
+              "id": "canonical",
+              "shortDescription": {
+                "text": "Release check: canonical"
+              },
+              "helpUri": "https://html.spec.whatwg.org/multipage/",
+              "properties": {
+                "source": "html-elements"
+              }
+            },
+            {
+              "id": "link:/docs",
+              "shortDescription": {
+                "text": "Release check: link:/docs"
+              },
+              "helpUri": "https://html.spec.whatwg.org/multipage/",
+              "properties": {
+                "source": "html-elements"
+              }
+            },
+            {
+              "id": "metadata:name:description",
+              "shortDescription": {
+                "text": "Release check: metadata:name:description"
+              },
+              "helpUri": "https://html.spec.whatwg.org/multipage/",
+              "properties": {
+                "source": "html-elements"
+              }
+            },
+            {
+              "id": "metadata:title",
+              "shortDescription": {
+                "text": "Release check: metadata:title"
+              },
+              "helpUri": "https://html.spec.whatwg.org/multipage/",
+              "properties": {
+                "source": "html-elements"
+              }
+            },
+            {
+              "id": "redirect",
+              "shortDescription": {
+                "text": "Release check: redirect"
+              },
+              "helpUri": "https://www.rfc-editor.org/rfc/rfc9110",
+              "properties": {
+                "source": "http-semantics"
+              }
+            },
+            {
+              "id": "robots.noindex",
+              "shortDescription": {
+                "text": "Release check: robots.noindex"
+              },
+              "helpUri": "https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag",
+              "properties": {
+                "source": "robots-directives"
+              }
+            },
+            {
+              "id": "status",
+              "shortDescription": {
+                "text": "Release check: status"
+              },
+              "helpUri": "https://www.rfc-editor.org/rfc/rfc9110",
+              "properties": {
+                "source": "http-semantics"
+              }
+            }
+          ]
+        }
+      },
+      "automationDetails": {
+        "id": "release-regression-guard/"
+      },
+      "results": [
+        {
+          "ruleId": "status",
+          "level": "warning",
+          "message": {
+            "text": "/auth: Not verifiable: authentication-required"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/auth"
+          }
+        },
+        {
+          "ruleId": "redirect",
+          "level": "warning",
+          "message": {
+            "text": "/auth: Not verifiable: authentication-required"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/auth"
+          }
+        },
+        {
+          "ruleId": "robots.noindex",
+          "level": "warning",
+          "message": {
+            "text": "/auth: Not verifiable: authentication-required"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/auth"
+          }
+        },
+        {
+          "ruleId": "canonical",
+          "level": "warning",
+          "message": {
+            "text": "/auth: Not verifiable: authentication-required"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/auth"
+          }
+        },
+        {
+          "ruleId": "metadata:title",
+          "level": "warning",
+          "message": {
+            "text": "/auth: Not verifiable: authentication-required"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/auth"
+          }
+        },
+        {
+          "ruleId": "metadata:name:description",
+          "level": "warning",
+          "message": {
+            "text": "/auth: Not verifiable: authentication-required"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/auth"
+          }
+        },
+        {
+          "ruleId": "link:/docs",
+          "level": "warning",
+          "message": {
+            "text": "/auth: Not verifiable: authentication-required"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/auth"
+          }
+        },
+        {
+          "ruleId": "status",
+          "level": "warning",
+          "message": {
+            "text": "/bot-block: Not verifiable: possible-bot-challenge"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/bot-block"
+          }
+        },
+        {
+          "ruleId": "redirect",
+          "level": "warning",
+          "message": {
+            "text": "/bot-block: Not verifiable: possible-bot-challenge"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/bot-block"
+          }
+        },
+        {
+          "ruleId": "robots.noindex",
+          "level": "warning",
+          "message": {
+            "text": "/bot-block: Not verifiable: possible-bot-challenge"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/bot-block"
+          }
+        },
+        {
+          "ruleId": "canonical",
+          "level": "warning",
+          "message": {
+            "text": "/bot-block: Not verifiable: possible-bot-challenge"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/bot-block"
+          }
+        },
+        {
+          "ruleId": "metadata:title",
+          "level": "warning",
+          "message": {
+            "text": "/bot-block: Not verifiable: possible-bot-challenge"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/bot-block"
+          }
+        },
+        {
+          "ruleId": "metadata:name:description",
+          "level": "warning",
+          "message": {
+            "text": "/bot-block: Not verifiable: possible-bot-challenge"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/bot-block"
+          }
+        },
+        {
+          "ruleId": "link:/docs",
+          "level": "warning",
+          "message": {
+            "text": "/bot-block: Not verifiable: possible-bot-challenge"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/bot-block"
+          }
+        },
+        {
+          "ruleId": "robots.noindex",
+          "level": "warning",
+          "message": {
+            "text": "/js-shell: HTML is an ambiguous JavaScript shell"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/js-shell"
+          }
+        },
+        {
+          "ruleId": "canonical",
+          "level": "warning",
+          "message": {
+            "text": "/js-shell: HTML is an ambiguous JavaScript shell"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/js-shell"
+          }
+        },
+        {
+          "ruleId": "metadata:title",
+          "level": "warning",
+          "message": {
+            "text": "/js-shell: HTML is an ambiguous JavaScript shell"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/js-shell"
+          }
+        },
+        {
+          "ruleId": "metadata:name:description",
+          "level": "warning",
+          "message": {
+            "text": "/js-shell: HTML is an ambiguous JavaScript shell"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/js-shell"
+          }
+        },
+        {
+          "ruleId": "link:/docs",
+          "level": "warning",
+          "message": {
+            "text": "/js-shell: HTML is an ambiguous JavaScript shell"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/js-shell"
+          }
+        },
+        {
+          "ruleId": "status",
+          "level": "warning",
+          "message": {
+            "text": "/temporary: Not verifiable: temporary-http-failure"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/temporary"
+          }
+        },
+        {
+          "ruleId": "redirect",
+          "level": "warning",
+          "message": {
+            "text": "/temporary: Not verifiable: temporary-http-failure"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/temporary"
+          }
+        },
+        {
+          "ruleId": "robots.noindex",
+          "level": "warning",
+          "message": {
+            "text": "/temporary: Not verifiable: temporary-http-failure"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/temporary"
+          }
+        },
+        {
+          "ruleId": "canonical",
+          "level": "warning",
+          "message": {
+            "text": "/temporary: Not verifiable: temporary-http-failure"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/temporary"
+          }
+        },
+        {
+          "ruleId": "metadata:title",
+          "level": "warning",
+          "message": {
+            "text": "/temporary: Not verifiable: temporary-http-failure"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/temporary"
+          }
+        },
+        {
+          "ruleId": "metadata:name:description",
+          "level": "warning",
+          "message": {
+            "text": "/temporary: Not verifiable: temporary-http-failure"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/temporary"
+          }
+        },
+        {
+          "ruleId": "link:/docs",
+          "level": "warning",
+          "message": {
+            "text": "/temporary: Not verifiable: temporary-http-failure"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/manifests/unknown.json"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "status": "unknown",
+            "criticalPath": "/temporary"
+          }
+        }
+      ]
+    }
+  ]
+}

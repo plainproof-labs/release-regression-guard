@@ -22,6 +22,16 @@
       "metadata": { "required": ["title", "name:description"] },
       "sitemap": { "required": true },
       "requiredInternalLinks": []
+    },
+    {
+      "path": "/bad-redirect",
+      "status": { "allowed": [200] },
+      "redirect": { "finalPath": "/bad-redirect", "expectedHops": 0 },
+      "robots": { "indexable": true },
+      "canonical": { "path": "/bad-redirect" },
+      "metadata": { "required": ["title", "name:description"] },
+      "sitemap": { "required": true },
+      "requiredInternalLinks": []
     }
   ]
 }

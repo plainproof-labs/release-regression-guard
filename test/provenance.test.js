@@ -31,5 +31,7 @@ test('self-hosted example is deterministic and has no live target or secret inpu
   assert.match(workflow, /RRG_FIXTURE_PORT: "0"/);
   assert.match(workflow, /target-base: \$\{\{ steps\.fixture\.outputs\.base \}\}/);
   assert.match(workflow, /manifest: fixtures\/manifests\/positive\.json/);
+  assert.match(workflow, /uses: actions\/upload-artifact@v7/);
+  assert.match(workflow, /if: always\(\)/);
   assert.doesNotMatch(workflow, /secrets\.|inputs\.target_base|https:\/\/|127\.0\.0\.1:4173/);
 });

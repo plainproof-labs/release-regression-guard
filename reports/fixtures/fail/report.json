@@ -4,15 +4,15 @@
   "provenance": {
     "schema": "https://release-regression-guard.invalid/schema/v1.json",
     "schemaVersion": 1,
-    "implementationVersion": "1.0.0",
+    "implementationVersion": "1.1.0",
     "sourceLedger": "sources/PROVENANCE.md",
     "ruleSourceMap": "src/provenance.js"
   },
   "summary": {
     "conclusion": "fail",
-    "total": 17,
-    "pass": 5,
-    "fail": 12,
+    "total": 25,
+    "pass": 7,
+    "fail": 18,
     "unknown": 0,
     "exception": 0
   },
@@ -36,7 +36,7 @@
       "check": "robots.noindex",
       "status": "fail",
       "message": "noindex directive present",
-      "source": "robots-exclusion"
+      "source": "robots-directives"
     },
     {
       "path": "/negative",
@@ -99,7 +99,7 @@
       "check": "robots.noindex",
       "status": "pass",
       "message": "No noindex directive found",
-      "source": "robots-exclusion"
+      "source": "robots-directives"
     },
     {
       "path": "/not-found",
@@ -134,6 +134,62 @@
       "check": "sitemap",
       "status": "fail",
       "message": "/not-found is missing from the sitemap",
+      "source": "sitemaps-protocol"
+    },
+    {
+      "path": "/bad-redirect",
+      "check": "status",
+      "status": "fail",
+      "message": "Redirect could not be completed: invalid-redirect-location",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/bad-redirect",
+      "check": "redirect",
+      "status": "fail",
+      "message": "Redirect could not be completed: invalid-redirect-location",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/bad-redirect",
+      "check": "robots.noindex",
+      "status": "pass",
+      "message": "No noindex directive found",
+      "source": "robots-directives"
+    },
+    {
+      "path": "/bad-redirect",
+      "check": "robots.disallow",
+      "status": "pass",
+      "message": "robots.txt allows /bad-redirect",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/bad-redirect",
+      "check": "canonical",
+      "status": "fail",
+      "message": "Expected one canonical /bad-redirect; observed missing",
+      "source": "html-elements"
+    },
+    {
+      "path": "/bad-redirect",
+      "check": "metadata:title",
+      "status": "fail",
+      "message": "title is missing or blank",
+      "source": "html-elements"
+    },
+    {
+      "path": "/bad-redirect",
+      "check": "metadata:name:description",
+      "status": "fail",
+      "message": "name:description is missing or blank",
+      "source": "html-elements"
+    },
+    {
+      "path": "/bad-redirect",
+      "check": "sitemap",
+      "status": "fail",
+      "message": "/bad-redirect is missing from the sitemap",
       "source": "sitemaps-protocol"
     }
   ]

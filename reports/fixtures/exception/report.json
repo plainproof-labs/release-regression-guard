@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "generatedAt": "2026-08-08T00:00:00.000Z",
+  "provenance": {
+    "schema": "https://release-regression-guard.invalid/schema/v1.json",
+    "schemaVersion": 1,
+    "implementationVersion": "1.1.0",
+    "sourceLedger": "sources/PROVENANCE.md",
+    "ruleSourceMap": "src/provenance.js"
+  },
+  "summary": {
+    "conclusion": "pass",
+    "total": 9,
+    "pass": 8,
+    "fail": 0,
+    "unknown": 0,
+    "exception": 1
+  },
+  "results": [
+    {
+      "path": "/exception",
+      "check": "status",
+      "status": "pass",
+      "message": "Final status 200",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/exception",
+      "check": "redirect",
+      "status": "pass",
+      "message": "0 hop(s), final path /exception",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/exception",
+      "check": "robots.noindex",
+      "status": "pass",
+      "message": "No noindex directive found",
+      "source": "robots-directives"
+    },
+    {
+      "path": "/exception",
+      "check": "robots.disallow",
+      "status": "pass",
+      "message": "robots.txt allows /exception",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/exception",
+      "check": "canonical",
+      "status": "pass",
+      "message": "Canonical is /exception",
+      "source": "html-elements"
+    },
+    {
+      "path": "/exception",
+      "check": "metadata:title",
+      "status": "pass",
+      "message": "title is present",
+      "source": "html-elements"
+    },
+    {
+      "path": "/exception",
+      "check": "metadata:name:description",
+      "status": "exception",
+      "message": "name:description is missing or blank; accepted until 2026-12-31: Known migration gap with an owner",
+      "exception": {
+        "source": "CHANGE-123",
+        "expiresAt": "2026-12-31"
+      },
+      "source": "html-elements"
+    },
+    {
+      "path": "/exception",
+      "check": "sitemap",
+      "status": "pass",
+      "message": "/exception is present in the sitemap",
+      "source": "sitemaps-protocol"
+    },
+    {
+      "path": "/exception",
+      "check": "link:/docs",
+      "status": "pass",
+      "message": "Internal link /docs is present",
+      "source": "html-elements"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ const fs = require('node:fs');
 
 const TOP_KEYS = new Set(['$schema', 'version', 'sitemapPath', 'criticalUrls']);
 const URL_KEYS = new Set(['path', 'status', 'redirect', 'robots', 'canonical', 'metadata', 'sitemap', 'requiredInternalLinks', 'exceptions']);
-const PATH_PATTERN = /^\/[^#]*$/;
+const PATH_PATTERN = /^\/(?!\/)[^\u0000-\u0020\u007F#]*$/u;
 const METADATA_PATTERN = /^(title|name:[A-Za-z0-9:_-]+|property:[A-Za-z0-9:_-]+)$/;
 
 function loadManifest(filePath) {
@@ -135,8 +135,8 @@ function checkIdsFor(entry) {
 }
 
 function validatePath(value, at, errors) {
-  if (typeof value !== 'string' || !PATH_PATTERN.test(value) || value.startsWith('//')) {
-    errors.push(`${at} must be an origin-relative path without a fragment`);
+  if (typeof value !== 'string' || !PATH_PATTERN.test(value)) {
+    errors.push(`${at} must be an origin-relative path without whitespace, control characters, or a fragment`);
   }
 }
 

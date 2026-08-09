@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('node:path');
 const { loadManifest } = require('./manifest');
 const { checkManifest } = require('./checker');
 const { buildReport, writeReports } = require('./report');
@@ -9,8 +10,17 @@ async function run(options) {
   const manifest = loadManifest(options.manifestPath);
   const results = await checkManifest(manifest, options);
   const report = buildReport(results, options.now || new Date());
-  const files = writeReports(report, options.reportDir);
+  const files = writeReports(report, options.reportDir, portableManifestUri(options.manifestPath));
   return { manifest, report, files };
+}
+
+function portableManifestUri(manifestPath) {
+  const absolute = path.resolve(manifestPath);
+  const relative = path.relative(process.cwd(), absolute);
+  if (relative && relative !== '..' && !relative.startsWith(`..${path.sep}`) && !path.isAbsolute(relative)) {
+    return relative.split(path.sep).join('/');
+  }
+  return path.basename(absolute);
 }
 
 function validateOptions(options) {
@@ -20,4 +30,4 @@ function validateOptions(options) {
   if (!Number.isInteger(options.timeoutMs) || options.timeoutMs < 100 || options.timeoutMs > 120000) throw new Error('timeout-ms must be an integer from 100 through 120000');
 }
 
-module.exports = { run, validateOptions };
+module.exports = { portableManifestUri, run, validateOptions };

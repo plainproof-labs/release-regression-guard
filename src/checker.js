@@ -1,7 +1,7 @@
 'use strict';
 
 const { fetchPage, normalizeBase } = require('./fetch');
-const { parseHtml } = require('./html');
+const { directives, parseHtml } = require('./html');
 
 async function checkManifest(manifest, options) {
   const base = normalizeBase(options.targetBase);
@@ -35,8 +35,8 @@ function checkEntry(entry, page, robotsResource, sitemap, baseOrigin) {
     });
   }
 
-  const parsed = parseHtml(page.body, baseOrigin);
-  const xRobots = (page.headers.get('x-robots-tag') || '').toLowerCase().split(/[\s,]+/).filter(Boolean);
+  const parsed = parseHtml(page.body, new URL(page.finalPath, baseOrigin).href);
+  const xRobots = directives(page.headers.get('x-robots-tag') || '');
   const jsUnknown = (check, failedMessage) => parsed.javascriptAmbiguous
     ? result(entry.path, check, 'unknown', 'HTML is an ambiguous JavaScript shell')
     : result(entry.path, check, 'fail', failedMessage);
@@ -54,7 +54,8 @@ function checkEntry(entry, page, robotsResource, sitemap, baseOrigin) {
       : result(entry.path, 'redirect', 'fail', `Expected ${entry.redirect.expectedHops} hop(s) to ${entry.redirect.finalPath}; observed ${page.chain.length} to ${page.finalPath}`));
   }
 
-  const noindex = [...parsed.metaRobots, ...xRobots].includes('noindex');
+  const robotsDirectives = [...parsed.metaRobots, ...xRobots];
+  const noindex = robotsDirectives.includes('noindex') || robotsDirectives.includes('none');
   if (noindex) {
     checks.push(result(entry.path, 'robots.noindex', 'fail', 'noindex directive present'));
   } else if (parsed.javascriptAmbiguous) {
@@ -98,8 +99,8 @@ function checkRobotsTxt(path, resource) {
 }
 
 function robotsDisallows(body, path) {
-  let applies = false;
-  let matched = '';
+  const groups = [];
+  let group = null;
   for (const original of body.split(/\r?\n/)) {
     const line = original.replace(/#.*$/, '').trim();
     if (!line) continue;
@@ -107,22 +108,39 @@ function robotsDisallows(body, path) {
     if (separator === -1) continue;
     const field = line.slice(0, separator).trim().toLowerCase();
     const value = line.slice(separator + 1).trim();
-    if (field === 'user-agent') applies = value === '*';
-    if (field === 'disallow' && applies && value && path.startsWith(value) && value.length > matched.length) matched = value;
-    if (field === 'allow' && applies && value && path.startsWith(value) && value.length >= matched.length) matched = '';
+    if (field === 'user-agent') {
+      if (!group || group.rules.length > 0) {
+        group = { agents: [], rules: [] };
+        groups.push(group);
+      }
+      group.agents.push(value.toLowerCase());
+      continue;
+    }
+    if (group && ['allow', 'disallow'].includes(field) && value) group.rules.push({ type: field, pattern: value });
   }
-  return matched !== '';
+  let best = null;
+  for (const candidate of groups.filter((item) => item.agents.includes('*')).flatMap((item) => item.rules)) {
+    if (!path.startsWith(candidate.pattern)) continue;
+    const length = Buffer.byteLength(candidate.pattern, 'utf8');
+    if (!best || length > best.length || (length === best.length && candidate.type === 'allow')) {
+      best = { type: candidate.type, length };
+    }
+  }
+  return best ? best.type === 'disallow' : false;
 }
 
 function parseSitemap(resource, baseOrigin) {
   if (resource.kind === 'unknown') return { kind: 'unknown', reason: resource.reason };
   if (resource.status !== 200) return { kind: 'failure', reason: `sitemap returned ${resource.status}` };
   const paths = new Set();
-  for (const match of resource.body.matchAll(/<loc\b[^>]*>([\s\S]*?)<\/loc\s*>/gi)) {
+  const xml = resource.body.replace(/<!--[\s\S]*?(?:-->|$)/g, '');
+  for (const urlEntry of xml.matchAll(/<url\b[^>]*>([\s\S]*?)<\/url\s*>/gi)) {
+    const match = urlEntry[1].match(/<loc\b[^>]*>([\s\S]*?)<\/loc\s*>/i);
+    if (!match) continue;
     const raw = decodeXml(match[1].trim());
     try {
-      const url = new URL(raw, baseOrigin);
-      if (url.origin === baseOrigin) paths.add(`${url.pathname}${url.search}`);
+      const url = new URL(raw);
+      if (['http:', 'https:'].includes(url.protocol) && url.origin === baseOrigin) paths.add(`${url.pathname}${url.search}`);
     } catch { /* Invalid entries do not establish membership. */ }
   }
   return { kind: 'parsed', paths };

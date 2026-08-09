@@ -41,7 +41,10 @@ jobs:
           target-base: ${{ steps.fixture.outputs.base }}
           report-dir: release-guard-report
 
-      - name: Add the local report to the run summary
+      - name: Keep JSON, SARIF, and Markdown reports
         if: always()
-        shell: bash
-        run: test -f release-guard-report/report.md && sed -n '1,240p' release-guard-report/report.md >> "$GITHUB_STEP_SUMMARY"
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-regression-guard-report
+          path: release-guard-report/
+          if-no-files-found: error

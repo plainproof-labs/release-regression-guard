@@ -1,0 +1,273 @@
+{
+  "formatVersion": 1,
+  "generatedAt": "2026-08-08T00:00:00.000Z",
+  "provenance": {
+    "schema": "https://release-regression-guard.invalid/schema/v1.json",
+    "schemaVersion": 1,
+    "implementationVersion": "1.1.0",
+    "sourceLedger": "sources/PROVENANCE.md",
+    "ruleSourceMap": "src/provenance.js"
+  },
+  "summary": {
+    "conclusion": "unknown",
+    "total": 36,
+    "pass": 10,
+    "fail": 0,
+    "unknown": 26,
+    "exception": 0
+  },
+  "results": [
+    {
+      "path": "/auth",
+      "check": "status",
+      "status": "unknown",
+      "message": "Not verifiable: authentication-required",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/auth",
+      "check": "redirect",
+      "status": "unknown",
+      "message": "Not verifiable: authentication-required",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/auth",
+      "check": "robots.noindex",
+      "status": "unknown",
+      "message": "Not verifiable: authentication-required",
+      "source": "robots-directives"
+    },
+    {
+      "path": "/auth",
+      "check": "robots.disallow",
+      "status": "pass",
+      "message": "robots.txt allows /auth",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/auth",
+      "check": "canonical",
+      "status": "unknown",
+      "message": "Not verifiable: authentication-required",
+      "source": "html-elements"
+    },
+    {
+      "path": "/auth",
+      "check": "metadata:title",
+      "status": "unknown",
+      "message": "Not verifiable: authentication-required",
+      "source": "html-elements"
+    },
+    {
+      "path": "/auth",
+      "check": "metadata:name:description",
+      "status": "unknown",
+      "message": "Not verifiable: authentication-required",
+      "source": "html-elements"
+    },
+    {
+      "path": "/auth",
+      "check": "sitemap",
+      "status": "pass",
+      "message": "/auth is present in the sitemap",
+      "source": "sitemaps-protocol"
+    },
+    {
+      "path": "/auth",
+      "check": "link:/docs",
+      "status": "unknown",
+      "message": "Not verifiable: authentication-required",
+      "source": "html-elements"
+    },
+    {
+      "path": "/bot-block",
+      "check": "status",
+      "status": "unknown",
+      "message": "Not verifiable: possible-bot-challenge",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/bot-block",
+      "check": "redirect",
+      "status": "unknown",
+      "message": "Not verifiable: possible-bot-challenge",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/bot-block",
+      "check": "robots.noindex",
+      "status": "unknown",
+      "message": "Not verifiable: possible-bot-challenge",
+      "source": "robots-directives"
+    },
+    {
+      "path": "/bot-block",
+      "check": "robots.disallow",
+      "status": "pass",
+      "message": "robots.txt allows /bot-block",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/bot-block",
+      "check": "canonical",
+      "status": "unknown",
+      "message": "Not verifiable: possible-bot-challenge",
+      "source": "html-elements"
+    },
+    {
+      "path": "/bot-block",
+      "check": "metadata:title",
+      "status": "unknown",
+      "message": "Not verifiable: possible-bot-challenge",
+      "source": "html-elements"
+    },
+    {
+      "path": "/bot-block",
+      "check": "metadata:name:description",
+      "status": "unknown",
+      "message": "Not verifiable: possible-bot-challenge",
+      "source": "html-elements"
+    },
+    {
+      "path": "/bot-block",
+      "check": "sitemap",
+      "status": "pass",
+      "message": "/bot-block is present in the sitemap",
+      "source": "sitemaps-protocol"
+    },
+    {
+      "path": "/bot-block",
+      "check": "link:/docs",
+      "status": "unknown",
+      "message": "Not verifiable: possible-bot-challenge",
+      "source": "html-elements"
+    },
+    {
+      "path": "/js-shell",
+      "check": "status",
+      "status": "pass",
+      "message": "Final status 200",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/js-shell",
+      "check": "redirect",
+      "status": "pass",
+      "message": "0 hop(s), final path /js-shell",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/js-shell",
+      "check": "robots.noindex",
+      "status": "unknown",
+      "message": "HTML is an ambiguous JavaScript shell",
+      "source": "robots-directives"
+    },
+    {
+      "path": "/js-shell",
+      "check": "robots.disallow",
+      "status": "pass",
+      "message": "robots.txt allows /js-shell",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/js-shell",
+      "check": "canonical",
+      "status": "unknown",
+      "message": "HTML is an ambiguous JavaScript shell",
+      "source": "html-elements"
+    },
+    {
+      "path": "/js-shell",
+      "check": "metadata:title",
+      "status": "unknown",
+      "message": "HTML is an ambiguous JavaScript shell",
+      "source": "html-elements"
+    },
+    {
+      "path": "/js-shell",
+      "check": "metadata:name:description",
+      "status": "unknown",
+      "message": "HTML is an ambiguous JavaScript shell",
+      "source": "html-elements"
+    },
+    {
+      "path": "/js-shell",
+      "check": "sitemap",
+      "status": "pass",
+      "message": "/js-shell is present in the sitemap",
+      "source": "sitemaps-protocol"
+    },
+    {
+      "path": "/js-shell",
+      "check": "link:/docs",
+      "status": "unknown",
+      "message": "HTML is an ambiguous JavaScript shell",
+      "source": "html-elements"
+    },
+    {
+      "path": "/temporary",
+      "check": "status",
+      "status": "unknown",
+      "message": "Not verifiable: temporary-http-failure",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/temporary",
+      "check": "redirect",
+      "status": "unknown",
+      "message": "Not verifiable: temporary-http-failure",
+      "source": "http-semantics"
+    },
+    {
+      "path": "/temporary",
+      "check": "robots.noindex",
+      "status": "unknown",
+      "message": "Not verifiable: temporary-http-failure",
+      "source": "robots-directives"
+    },
+    {
+      "path": "/temporary",
+      "check": "robots.disallow",
+      "status": "pass",
+      "message": "robots.txt allows /temporary",
+      "source": "robots-exclusion"
+    },
+    {
+      "path": "/temporary",
+      "check": "canonical",
+      "status": "unknown",
+      "message": "Not verifiable: temporary-http-failure",
+      "source": "html-elements"
+    },
+    {
+      "path": "/temporary",
+      "check": "metadata:title",
+      "status": "unknown",
+      "message": "Not verifiable: temporary-http-failure",
+      "source": "html-elements"
+    },
+    {
+      "path": "/temporary",
+      "check": "metadata:name:description",
+      "status": "unknown",
+      "message": "Not verifiable: temporary-http-failure",
+      "source": "html-elements"
+    },
+    {
+      "path": "/temporary",
+      "check": "sitemap",
+      "status": "pass",
+      "message": "/temporary is present in the sitemap",
+      "source": "sitemaps-protocol"
+    },
+    {
+      "path": "/temporary",
+      "check": "link:/docs",
+      "status": "unknown",
+      "message": "Not verifiable: temporary-http-failure",
+      "source": "html-elements"
+    }
+  ]
+}

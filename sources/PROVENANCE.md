@@ -12,6 +12,9 @@ platform documentation:
 - URI Generic Syntax (RFC 3986): <https://www.rfc-editor.org/rfc/rfc3986>
 - Robots Exclusion Protocol (RFC 9309), rule source `robots-exclusion`:
   <https://www.rfc-editor.org/rfc/rfc9309>
+- Robots meta and `X-Robots-Tag` directives, rule source
+  `robots-directives`:
+  <https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag>
 - HTML Living Standard, rule source `html-elements`:
   <https://html.spec.whatwg.org/multipage/>
 - Sitemaps protocol, rule source `sitemaps-protocol`:

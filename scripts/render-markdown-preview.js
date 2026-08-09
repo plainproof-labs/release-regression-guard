@@ -13,6 +13,8 @@ for (const [input, output, title] of [
   ['README.md', 'readme.html', 'Release Regression Guard README'],
   ['reports/fixtures/pass/report.md', 'report-pass.html', 'Release Regression Guard PASS report'],
   ['reports/fixtures/fail/report.md', 'report-fail.html', 'Release Regression Guard FAIL report'],
+  ['reports/fixtures/exception/report.md', 'report-exception.html', 'Release Regression Guard EXCEPTION report'],
+  ['reports/fixtures/unknown/report.md', 'report-unknown.html', 'Release Regression Guard UNKNOWN report'],
   ['.github/MARKETPLACE.md', 'marketplace.html', 'Release Regression Guard Marketplace copy']
 ]) {
   const markdown = fs.readFileSync(path.join(root, input), 'utf8');

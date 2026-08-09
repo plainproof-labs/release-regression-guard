@@ -22,6 +22,16 @@
       "metadata": { "required": ["title", "name:description"] },
       "sitemap": { "required": true },
       "requiredInternalLinks": ["/docs"]
+    },
+    {
+      "path": "/negative/allowed",
+      "status": { "allowed": [200] },
+      "redirect": { "finalPath": "/negative/allowed", "expectedHops": 0 },
+      "robots": { "indexable": true },
+      "canonical": { "path": "/negative/allowed" },
+      "metadata": { "required": ["title", "name:description"] },
+      "sitemap": { "required": true },
+      "requiredInternalLinks": ["/docs"]
     }
   ]
 }

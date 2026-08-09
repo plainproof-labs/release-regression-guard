@@ -1,5 +1,10 @@
 <!doctype html>
 <html lang="en">
-<head><script type="module" src="/assets/app.js"></script></head>
+<head>
+  <!-- <title>Comment text is not document metadata</title> -->
+  <script type="module" src="/assets/app.js">
+    const nonDomText = '<title>Fake title</title><meta name="description" content="fake"><link rel="canonical" href="/js-shell"><a href="/docs">fake</a>';
+  </script>
+</head>
 <body><div id="root"></div><noscript>Please enable JavaScript.</noscript></body>
 </html>
