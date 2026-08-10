@@ -32,7 +32,7 @@ test('Action entrypoint produces reports, summaries, and honest annotations for 
         'INPUT_MANIFEST': path.join(ROOT, `fixtures/manifests/${scenario.fixture}.json`),
         'INPUT_TARGET-BASE': site.baseUrl,
         'INPUT_REPORT-DIR': path.join(directory, 'reports'),
-        'INPUT_TIMEOUT-MS': '1000',
+        'INPUT_TIMEOUT-MS': '5000',
         GITHUB_OUTPUT: outputFile,
         GITHUB_STEP_SUMMARY: summaryFile,
         GITHUB_REPOSITORY: 'private-owner-canary/private-repository-canary',

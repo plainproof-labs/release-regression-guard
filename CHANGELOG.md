@@ -2,7 +2,7 @@
 
 All notable changes to Release Regression Guard are documented here.
 
-## 1.1.0 - 2026-08-09
+## 1.1.0 - 2026-08-10
 
 - Add an Action-owned, 200 KiB-bounded GitHub Job Summary without adding an
   installation step or a network request.
