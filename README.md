@@ -27,9 +27,8 @@ synthetic results, not claims about a live site or product outcome.
 
 ## Install
 
-Use the public repository owner in the Action reference below. The
-pre-publication package keeps `plainproof-labs` as a fail-visible placeholder until
-the approved neutral owner completes the human-controlled release.
+The release package is finalized with the approved public repository owner
+before publication. Use the owner shown in the Action reference below.
 
 1. Copy [`examples/release-guard.json`](examples/release-guard.json) to
    `release-guard.json` in the repository being checked.
