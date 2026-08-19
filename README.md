@@ -180,7 +180,6 @@ The complete repository-owned self-hosted example is
 [`self-hosted-example.yml`](.github/workflows/self-hosted-example.yml). It
 starts a deterministic localhost fixture on an operating-system-assigned port,
 uses the Action-owned Job Summary, and retains all three report artifacts.
-
 For a local command-line check against an approved target:
 
 ```text
@@ -221,16 +220,3 @@ Schema and remediation sources are recorded in
 [`sources/PROVENANCE.md`](sources/PROVENANCE.md). Security reporting guidance is
 in [`SECURITY.md`](SECURITY.md), and release changes are in
 [`CHANGELOG.md`](CHANGELOG.md).
-
-## Fixed-scope setup audit
-
-Plainproof Labs offers a bounded setup audit for teams that already know the public pages they cannot afford to misconfigure after a deploy.
-
-- Total payment: **49,800円（税込）**.
-- Scope: one public GitHub repository, one public preview origin, and one to five declared critical URLs.
-- Delivery: manifest, least-privilege workflow candidate, preflight evidence, JSON/SARIF/Markdown results, and one scope-bound correction.
-- A target result of `fail`, `unknown`, or `exception` is a valid audit result; the target is not changed as part of delivery.
-- Credentials, private repositories, production access, and target changes remain outside scope.
-- Cancel before work starts, provider inability to deliver the contracted artifacts, or provider-responsible mismatch after the included correction: full refund. A changed target, URL, or rule is a new quote.
-
-[Ask about the fixed scope](https://jidogu.com/contact/rrg/) before payment. After preflight approval, use the [approved payment route](https://buy.stripe.com/5kQbJ29VC71i9YT1lx0gw00).

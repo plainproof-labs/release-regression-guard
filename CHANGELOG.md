@@ -2,6 +2,15 @@
 
 All notable changes to Release Regression Guard are documented here.
 
+## Offer-boundary correction - 2026-08-20
+
+- Retire the fixed-scope human setup audit, its contact/payment launch adapter,
+  and all customer-specific fulfillment artifacts.
+- Keep the free Action runtime and its report contract unchanged.
+- Remove the human audit offer from the public repository candidate. Existing
+  immutable tags remain unchanged; the public default-branch description is
+  corrected without claiming a sale or outcome.
+
 ## 1.1.0 - 2026-08-10
 
 - Add an Action-owned, 200 KiB-bounded GitHub Job Summary without adding an
