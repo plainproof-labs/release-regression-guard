@@ -25,6 +25,16 @@ See the deterministic evidence before installing: [PASS](reports/fixtures/pass/r
 and [time-limited EXCEPTION](reports/fixtures/exception/report.md). These are
 synthetic results, not claims about a live site or product outcome.
 
+## Self-serve configuration pack
+
+If you want a ready-to-edit manifest, read-only workflow, and verification
+checklist in one ZIP, the
+[Release Regression Guard configuration pack](https://jidogu.booth.pm/items/8738443)
+is available for 2,980 JPY as an automatic download. The paid pack does not
+include consulting, repository-specific setup, an individual audit, or
+additional delivery after purchase; the free Action remains complete and
+usable without it.
+
 ## Install
 
 The release package is finalized with the approved public repository owner
